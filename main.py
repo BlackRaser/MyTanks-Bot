@@ -16,7 +16,7 @@ help = ("Это пока тестовая версия бота. Команды:
 "`/ping` - Текущая задержка бота\n"
 "`/help` - Команда, которую вы использовали для получения информации\n"
 "`/hello` - Поздороваться с ботом\n\n"
-"Версия: "  + os.getenv('version') + "." + os.getenv('build'))
+"v.: "  + os.getenv('version') + "." + os.getenv('build'))
 
 class comands: # Команды
     @bot.slash_command (name = "hello", description = "Скажи привет боту!")
@@ -27,7 +27,7 @@ class comands: # Команды
     @bot.slash_command (name = 'help', descripton = 'Информация о боте')
     async def help(ctx):
         await ctx.respond(help)
-        print(f" * version использовал пользователь {ctx.author}")
+        print(f" * help использовал пользователь {ctx.author}")
 
     @bot.command(name = 'ping', description="Возвращает задержку бота") 
     async def ping(ctx): 
