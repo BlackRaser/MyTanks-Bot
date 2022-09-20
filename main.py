@@ -21,7 +21,7 @@ help = ("Это пока тестовая версия бота. Команды:
 class comands: # Команды
     @bot.slash_command (name = "hello", description = "Скажи привет боту!")
     async def hello(ctx):
-        await ctx.respond(f"Привет, {ctx.author}!")
+        await ctx.respond(f"Привет, {ctx.author} !")
         print(f" * hello использовал пользователь {ctx.author}")
 
     @bot.slash_command (name = 'help', descripton = 'Информация о боте')
@@ -29,8 +29,8 @@ class comands: # Команды
         await ctx.respond(help)
         print(f" * version использовал пользователь {ctx.author}")
 
-    @bot.command(name = 'ping', description="Возвращает задержку бота") # this decorator makes a slash command
-    async def ping(ctx): # a slash command will be created with the name "ping"
+    @bot.command(name = 'ping', description="Возвращает задержку бота") 
+    async def ping(ctx): 
         await ctx.respond(f"Ping!\nLatency is **{round(bot.latency * 1000)} ms**!")
         print(f" * ping использовал пользователь {ctx.author}")
 
