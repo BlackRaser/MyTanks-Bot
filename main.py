@@ -16,7 +16,7 @@ help = ("Это пока тестовая версия бота. Команды:
 "`/ping` - Текущая задержка бота\n"
 "`/help` - Команда, которую вы использовали для получения информации\n"
 "`/hello` - Поздороваться с ботом\n\n"
-"Версия: "  + os.getenv('version') + os.getenv('build'))
+"Версия: "  + os.getenv('version') + "." + os.getenv('build'))
 
 class comands: # Команды
     @bot.slash_command (name = "hello", description = "Скажи привет боту!")
