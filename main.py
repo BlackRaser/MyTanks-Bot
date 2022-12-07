@@ -1,37 +1,47 @@
-#Библиоеки
-from ensurepip import version
-import discord 
+#Lib
+import datetime
+import logging
 import os
-from colorama import Fore, Back, Style
+from ensurepip import version
+
+import discord
+from colorama import Back, Fore, Style
 from dotenv import load_dotenv
+
+#Logging
+logging.basicConfig(level=logging.INFO, filename="events.log",filemode="w", format="%(asctime)s %(levelname)s %(message)s")
 
 load_dotenv()
 bot = discord.Bot()
 
 @bot.event
 async def on_ready ():
-    print("\n\n################################\n\n#  MyTanks Discord Bot ONLINE  #\n\n################################\n\n")
+    print("\nMyTanks Discord Bot ONLINE\n")
 
-help = ("Это пока тестовая версия бота. Команды:\n" # Информация о боте
-"`/ping` - Текущая задержка бота\n"
-"`/help` - Команда, которую вы использовали для получения информации\n"
-"`/hello` - Поздороваться с ботом\n\n"
-"v.: "  + os.getenv('version') + "." + os.getenv('build'))
+#Help
+help = (os.getenv('help') + "v.: "  + os.getenv('version') + "." + os.getenv('build'))
 
-class comands: # Команды
-    @bot.slash_command (name = "hello", description = "Скажи привет боту!")
+#Commands
+class comands:
+    @bot.command (name = "hello", description = "Say hello to the bot!")
     async def hello(ctx):
-        await ctx.respond(f"hi, {ctx.author.mention}")
-        print(f" * hello использовал пользователь {ctx.author}")
+        author = str(ctx.author.id)
+        await ctx.respond(f"Hi, {ctx.author.mention}")
+        print(f" * hello использовал пользователь " + author)
+        logging.info(f"Command 'hello' using by " + author)
 
-    @bot.slash_command (name = 'help', descripton = 'Информация о боте')
+    @bot.command (name = 'help', descripton = 'Information about bot')
     async def help(ctx):
+        author = str(ctx.author.id)
         await ctx.respond(help)
-        print(f" * help использовал пользователь {ctx.author}")
+        print(f" * help использовал пользователь " + author)
+        logging.info(f"Command 'help' using by " + author)
 
     @bot.command(name = 'ping', description="Возвращает задержку бота") 
     async def ping(ctx): 
+        author = str(ctx.author.id)
         await ctx.respond(f"Ping!\nLatency is **{round(bot.latency * 1000)} ms**!")
-        print(f" * ping использовал пользователь {ctx.author}")
+        print(f" * ping использовал пользователь " + author)
+        logging.info(f"Command 'ping' using by " + author)
 
 bot.run(os.getenv('TOKEN'))
