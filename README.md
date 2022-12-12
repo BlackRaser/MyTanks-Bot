@@ -24,3 +24,5 @@
  https://discordpy.readthedocs.io/en/stable/api.html
 
  https://docs.python.org/3/library/logging.html
+ 
+ https://guide.pycord.dev/introduction/
