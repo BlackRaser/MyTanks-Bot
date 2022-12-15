@@ -1,25 +1,28 @@
 # Libs
-import sys
 import logging
 import os
 import discord
-from ensurepip import version
-from colorama import Back, Fore, Style
+from colorama import Fore, Style
 from dotenv import load_dotenv
 from discord.ext import commands
 
 # Logging
-logging.basicConfig(level=logging.INFO, filename="events.log", format="%(asctime)s | %(levelname)s | %(message)s")
+logging.basicConfig(level=logging.WARNING, filename="events.log", format="%(asctime)s: %(message)s")
 
-# Imort env
+# Import env
 load_dotenv()
+
+# var
 bot = discord.Bot()
+ver = (os.getenv('version') + os.getenv('build') )
+event = "USED:      Command "
 
 # Start bot
 @bot.event
 async def on_ready ():
-    print("\nMyTanks Discord Bot ONLINE\n")
-    logging.warning('MyTanks Discord Bot ONLINE')
+    print(Fore.GREEN, "\n====================== MyTanks Discord Bot ONLINE ======================\n", Style.RESET_ALL)
+    logging.error('\n\n====================== MyTanks Discord Bot ONLINE ======================\n')
+    
 
 ##### Commands #####
 class comands:  
@@ -29,7 +32,7 @@ class comands:
         author = str(ctx.author.id)
         
         #Embed
-        help=discord.Embed(                                                                                                                                                 #Embed text
+        help=discord.Embed(             #Embed text
             title="Помощь  |  Help",
             description=
             """
@@ -49,22 +52,26 @@ class comands:
             """, 
             color=0x38f11a
         )
-        help.add_field(name="Website", value="http://mytanks.net/", inline=True)                                                                                            #Description
-        help.add_field(name="VK", value="https://vk.com/mytanksonline_official", inline=True)                                                                               #Description
+        help.add_field(name="Website", value="http://mytanks.net/", inline=True)    #Description
+        help.add_field(name="VK", value="https://vk.com/mytanksonline_official", inline=True)   #Description
         help.set_author(name = "MyTanks", url="http://mytanks.net", icon_url='https://cdn.discordapp.com/attachments/942924556555927612/1052299135669243924/MyTanks.png')   #Embed author
-        help.set_footer(text = f"ver.:{os.getenv('version')}.{os.getenv('build')}  |  Powered by MyTanks  |  Last update {os.getenv('upd_date')}")                          #Embed sign
+        help.set_footer(text = f"ver.:{ver}  |  Powered by MyTanks  |  Last update {os.getenv('upd_date')}")    #Embed sign
         
         await ctx.respond(embed=help)
-        print(f" * help использовал пользователь {author}")
-        logging.info(f"Command 'help' using by {author}")
+        
+        # Logging
+        print(Fore.YELLOW, f" * help использовал пользователь {author}", Style.RESET_ALL)
+        logging.warning(f"{event} 'help' by {author}")
         
 # Hello        
     @bot.command (name = "hello", description = "Say hello to the bot!")
     async def hello(ctx):
         author = str(ctx.author.id)
         await ctx.respond(f"Hi, {ctx.author.mention}")
-        print(f" * hello использовал пользователь {author}")
-        logging.info(f"Command 'hello' using by {author}")
+        
+        # Logging
+        print(Fore.YELLOW, f" * hello использовал пользователь {author}")
+        logging.warning(f"{event} 'hello' by {author}")
 
 # Ping
     @bot.command(name = "ping", description="Returns the bot delay") 
@@ -72,10 +79,11 @@ class comands:
         author = str(ctx.author.id)
         latency = round(bot.latency*1000)
         latency=str(latency)
-        logging.info(f"Latency is {latency} ms")
+        print(Fore.MAGENTA, f'Current latency {latency}', Style.RESET_ALL)
+        logging.warning(f"Latency is {latency} ms")
         
         #Embed
-        ping=discord.Embed(                                                                                                                                                 #Embed text
+        ping=discord.Embed(             #Embed text
             title="Current latency",
             description=
             f"""
@@ -83,34 +91,39 @@ class comands:
             """, 
             color=0x38f11a
         )
-        ping.set_author(name = "MyTanks", url="http://mytanks.net", icon_url='https://cdn.discordapp.com/attachments/942924556555927612/1052299135669243924/MyTanks.png')   #Embed author
-        ping.set_footer(text = f"ver.:{os.getenv('version')}.{os.getenv('build')}  |  Powered by MyTanks  |  Last update {os.getenv('upd_date')}")                          #Embed sign
+        ping.set_author(name = "MyTanks", url="http://mytanks.net", icon_url='https://cdn.discordapp.com/attachments/942924556555927612/1052299135669243924/MyTanks.png') #Embed author
+        ping.set_footer(text = f"ver.:{ver}  |  Powered by MyTanks  |  Last update {os.getenv('upd_date')}") #Embed sign
         
         await ctx.respond(embed=ping)
-        print(f" * ping использовал пользователь {author}")
-        logging.info(f"Command 'ping' using by {author}")
+        
+        # Logging
+        print(Fore.YELLOW, f" * ping использовал пользователь {author}", Style.RESET_ALL)
+        logging.warning(f"{event} 'ping' by {author}")
 
 # Stop    
     @bot.command(name = "stop", description="Stops the bot. To use it, you must have bot administration rights", hidden=True)
     async def stop (ctx):
         author = str(ctx.author.id)
         if author==os.getenv("admin_id"):
-            print ("MyTanks Discord Bot OFFLINE")
-            logging.warning("MyTanks Discord Bot OFFLINE")
+            # Logging
+            print (Fore.RED, "\n====================== MyTanks Discord Bot OFFLINE ======================\n", Style.RESET_ALL)
+            logging.warning("\n\n====================== MyTanks Discord Bot OFFLINE ======================\n")
             
             #Embed
-            stop=discord.Embed(                                                                                                                                             #Embed text
+            stop=discord.Embed(                                                                                                                                                 #Embed text
                 title="**MyTanks Discord Bot OFFLINE**", 
                 color=0xff0000
             )
             stop.set_author(name = "MyTanks", url="http://mytanks.net", icon_url='https://cdn.discordapp.com/attachments/942924556555927612/1052299135669243924/MyTanks.png')   #Embed author
-            stop.set_footer(text = f"ver.:{os.getenv('version')}.{os.getenv('build')}  |  Powered by MyTanks  |  Last update {os.getenv('upd_date')}")                          #Embed sign
+            stop.set_footer(text = f"ver.:{ver}  |  Powered by MyTanks  |  Last update {os.getenv('upd_date')}")                                                            #Embed sign
             await ctx.respond(embed=stop)
-            sys.exit()
+            await bot.close()
         else:
             await ctx.respond("Your not my daddy!")
-            print(f" * stop использовал пользователь {author}")
-            logging.warning(f"Command 'stop' using by {author}")
+            
+            # Logging
+            print(Fore.YELLOW, f" * stop использовал пользователь {author}", Style.RESET_ALL)
+            logging.error(f"{event} 'stop' by {author}")
         
 
 bot.run(os.getenv('TOKEN'))
