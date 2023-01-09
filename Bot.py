@@ -43,8 +43,8 @@ class embeds:
         `/ping` - Текущая задержка бота  |  Current bot latency
         `/hello` - Поздороваться с ботом  |  Say hello to the bot
         `/stop` - Остановить бота. Нужно быть разработчиком  |  Stop the bot. You need to be a developer
-        `connection` - Ответ на ошибку "Connection closed by server!" | Response to the error "Connection closed by server!"
-        `file` - Ответ на ошибку "The specified file cannot be found" | Response to the error "The specified file cannot be found"
+        `/connection` - Ответ на ошибку "Connection closed by server!" | Response to the error "Connection closed by server!"
+        `/file` - Ответ на ошибку "The specified file cannot be found" | Response to the error "The specified file cannot be found"
                 
         **Нужна помощь в игре?  | Need help in the game?**
         <#847887130415595561>
