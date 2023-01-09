@@ -1,3 +1,10 @@
+1.9.32a
+- Вернулась кнопка 'FAQ' в команде 'help'
+- Добавлен ответ по ошибке 'Connection closed by server!'  и 'The specified file cannot be found'
+- В FAQ добавлены кнопки 'Connection closed by server!' и 'Не удаётся найти указанный файл' при помощи класса 'faq_buttons'
+- Добавлена команда 'connection', которая вызывает быстрый ответ по ошибке 'Connection closed by server!'
+- Добавлена команда 'file404', которая вызывает быстрый ответ по ошибке 'The specified file cannot be found'
+
 1.8.28a
 - В логах теперь отображается ник автора запроса
 
